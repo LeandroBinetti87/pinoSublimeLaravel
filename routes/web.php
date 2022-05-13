@@ -14,9 +14,6 @@ use App\Http\Controllers\Controller;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/',[Controller::class, 'articulos']);
 
-Route::get('/articulos', [Controller::class, 'articulos']);
 Route::get('/articulos2', [Controller::class, 'articulos2']);
