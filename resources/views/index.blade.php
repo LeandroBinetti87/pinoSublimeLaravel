@@ -303,14 +303,14 @@
 				<div class="col">
 					
 					<div class="product_grid">
-					@foreach($respuesta as $item)
+					@foreach($respuesta as $key => $data)
 						<!-- Product -->
 						<div class="product">
-							<div class="product_image"><img src="{{$item['articleImage']}}" alt=""></div>
-							<div class="product_extra product_new"><a href="categories.html">{{$item['articleCategory']}}</a></div>
+							<div class="product_image"><img src="{{$data->image}}" alt=""></div>
+							<div class="product_extra product_new"><a href="categories.html">{{$data->category}}</a></div>
 							<div class="product_content">
-								<div class="product_title"><a href="product.html">{{$item['articleName']}}</a></div>
-								<div class="product_price">${{$item['articlePrice']}}</div>
+								<div class="product_title"><a href="product.html">{{$data->name}}</a></div>
+								<div class="product_price">${{$data->price}}</div>
 							</div>
 						</div>
 					@endforeach
