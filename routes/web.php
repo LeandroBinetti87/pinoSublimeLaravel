@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Admin;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -38,3 +40,12 @@ Route::get('/cargar_articulos', function(){
     return redirect('/');
 });
 
+
+/** 
+ * @brief: Rutas admin
+ * @details: Acá se ponen todas las rutas que tienen relacion a las funcionaliadades
+ *           que tiene el administrador del sitio web
+ * 
+ */
+
+ Route::get('/admin/articulos', [Admin::class, 'articulos']);
