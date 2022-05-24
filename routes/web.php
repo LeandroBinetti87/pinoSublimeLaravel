@@ -38,3 +38,7 @@ Route::get('/cargar_articulos', function(){
     return redirect('/');
 });
 
+Route::get('/alta_articulo', [Controller::class, 'alta']);
+
+Route::post('/guardar_formulario', [Controller::class, 'store'])->name('formulario.guardar');
+
