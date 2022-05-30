@@ -128,24 +128,38 @@
     <div class="home">
 		<div class="home_slider_container">
 
+		@if($errors->any())
+			<div class="alert alert-danger">
+				<ul>
+					@foreach ($errors->all() as $error)
+						<li>{{ $error  }}</li>
+					@endforeach
+				</ul>
+			</div>
+		@endif
+
             <h1>Formulario de carga de artículos</h1>
 
             <form method="post" action="{{route('formulario.guardar')}}">
                 <div class="form-group">
                     <label class="control-label" for="name">Nombre</label>
-                    <input type="text" class="form-control" placeholder="Nombre" name="name">
+                    <input type="text" class="form-control" placeholder="Nombre" name="name" required>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="price">Precio</label>
-                    <input type="text" class="form-control" placeholder="Precio" name="price">
+                    <input type="text" class="form-control" placeholder="Precio" name="price" required>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="image">Imagen</label>
-                    <input type="text" class="form-control" placeholder="Imagen" name="image">
+                    <input type="file" accept="image/png, image/jpeg" class="form-control" placeholder="Imagen" name="image" required>
+					<!--<input type="text" class="form-control" placeholder="Imagen" name="image">-->
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="category">Categoria</label>
-                    <input type="text" class="form-control" placeholder="Categoria" name="category">
+                    <select type="text" class="form-control" placeholder="Categoria" name="category" required>
+						<option value="Yerbacafe">Yerbacafe</option>
+						<option value="Bebidas">Bebidas</option>
+					</select>
                 </div>
                 <button type="submit" class="btn btn-default">Enviar</button>
             </form>
@@ -156,6 +170,7 @@
 			echo ($respuesta['name']); echo('<br>');
 			echo ($respuesta['price']); echo('<br>');
 			echo ($respuesta['category']); echo('<br>');
+			echo ($respuesta['image']); echo('<br>');
 		   }
 		?>
 

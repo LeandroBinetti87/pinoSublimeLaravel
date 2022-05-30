@@ -53,4 +53,4 @@ Route::get('/admin/articulos', [Admin::class, 'articulos']);
 
 Route::get('/alta_articulo', [Controller::class, 'alta']);
 
-Route::post('/guardar_formulario', [Controller::class, 'store'])->name('formulario.guardar'); 
+Route::post('/guardar_formulario', [Controller::class, 'store'])->name('formulario.guardar');
