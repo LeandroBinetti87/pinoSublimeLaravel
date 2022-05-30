@@ -41,9 +41,40 @@ class Controller extends BaseController
     //Trae datos del formulario, los guarda en variables locales que luego vuelca en la base de datos
     //para después volver a la vista
     public function store(Request $request){
+
+        // $request->validate([
+        //     'name' => 'required',
+        //     'founded' => 'required|integer|min:0|max:2021',
+        //     'description' => 'required',
+        //     'image' => 'required|mimes:jpg,png,jpeg|max:5048'
+        // ]);
+
+        // $test = $request->file('image')->getClientOriginalName();
+        // gessExtension()
+        // getMimeType()
+        // store()
+        // asStore()
+        // storePublicly()
+        // move()
+        // getClientOriginalName()
+        // getClientMimeType()
+        // getClientMimeType()
+        // gessClientExtension()
+        // getSize()
+        // getError()
+        // isValid()
+
+        // dd($test);
+
+        $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
+        $request->image->move(public_path('images'), $newImageName);
+        // dd($test);
+
+
+
         $nombre = $request->input('name');
         $precio = $request->input('price');
-        $imagen = $request->input('image');
+        $imagen = 'images/' . $newImageName;
         $categoria = $request->input('category');
         //Escribo en base de datos
         DB::table('articulo')->upsert([
@@ -55,4 +86,5 @@ class Controller extends BaseController
         ];
         return view('alta', compact('respuesta'));
     }
+    
 }

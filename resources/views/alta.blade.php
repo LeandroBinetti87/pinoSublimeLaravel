@@ -130,7 +130,7 @@
 
             <h1>Formulario de carga de artículos</h1>
 
-            <form method="post" action="{{route('formulario.guardar')}}">
+            <form method="post" action="{{route('formulario.guardar')}}" enctype="multipart/form-data">@csrf
                 <div class="form-group">
                     <label class="control-label" for="name">Nombre</label>
                     <input type="text" class="form-control" placeholder="Nombre" name="name">
@@ -141,7 +141,8 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="image">Imagen</label>
-                    <input type="text" class="form-control" placeholder="Imagen" name="image">
+                    <!-- <input type="text" class="form-control" placeholder="Imagen" name="image"> -->
+                    <input type="file" class="form-control" placeholder="Imagen" name="image">
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="category">Categoria</label>
