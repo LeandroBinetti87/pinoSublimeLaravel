@@ -11,4 +11,14 @@ class Admin extends Controller
         $respuesta = DB::table('articulo')->get();
         return view('admin/articulos', ['respuesta' => $respuesta]);
     }
+
+    function delete_get($id){
+        $articulo = DB::table('articulo')->where('id',$id)->first();
+        return view('admin/articulos_delete', ['articulo' => $articulo]);
+    }
+
+    function delete($id){
+        $articulo = DB::table('articulo')->where('id',$id)->delete();
+        return redirect('/admin/articulos');
+    }
 }
