@@ -41,17 +41,23 @@ class Controller extends BaseController
     //Trae datos del formulario, los guarda en variables locales que luego vuelca en la base de datos
     //para después volver a la vista
     public function store(Request $request){
+ //       $validatedData = $request->validate([
+ //           'name' => 'required',
+ //           'price' => 'required',
+ //           'image' => 'required',
+ //           'category' => 'required',
+ //       ]);
         $nombre = $request->input('name');
         $precio = $request->input('price');
         $imagen = $request->input('image');
         $categoria = $request->input('category');
         //Escribo en base de datos
         DB::table('articulo')->upsert([
-            ['name'=> $nombre, 'price' => floatval($precio), 'image' => $imagen, 'category' => $categoria],
+            ['name'=> $nombre, 'price' => floatval($precio), 'image' => 'images/' . $imagen, 'category' => $categoria],
         ],[]);
         //Envío respuesta a vista
         $respuesta = [
-            'name' => $nombre, 'price' => $precio, 'image' => $imagen, 'category' => $categoria
+            'name' => $nombre, 'price' => $precio, 'image' => 'images/' . $imagen, 'category' => $categoria
         ];
         return view('alta', compact('respuesta'));
     }
