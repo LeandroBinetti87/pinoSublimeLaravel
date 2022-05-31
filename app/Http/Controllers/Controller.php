@@ -82,11 +82,11 @@ class Controller extends BaseController
         $categoria = $request->input('category');
         //Escribo en base de datos
         DB::table('articulo')->upsert([
-            ['name'=> $nombre, 'price' => floatval($precio), 'image' => 'images/' . $imagen, 'category' => $categoria],
+            ['name'=> $nombre, 'price' => floatval($precio), 'image' =>  $imagen, 'category' => $categoria],
         ],[]);
         //Envío respuesta a vista
         $respuesta = [
-            'name' => $nombre, 'price' => $precio, 'image' => 'images/' . $imagen, 'category' => $categoria
+            'name' => $nombre, 'price' => $precio, 'image' => $imagen, 'category' => $categoria
         ];
         return view('alta', compact('respuesta'));
     }
