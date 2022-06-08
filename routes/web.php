@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Admin;
-
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +50,7 @@ Route::get('/cargar_articulos', function(){
  * 
  */
 
-Route::get('/admin/articulos', [Admin::class, 'articulos']);
+Route::get('/admin/articulos', [Admin::class, 'articulos'])->middleware('auth');
 
 Route::get('/alta_articulo', [Controller::class, 'alta']);
 
@@ -59,3 +60,28 @@ Route::post('/guardar_formulario', [Controller::class, 'store'])->name('formular
 Route::get('/admin/article/delete_get/{id}', [Admin::class, 'delete_get']);
 Route::get('/admin/article/delete/{id}', [Admin::class, 'delete']);
 
+
+/** 
+ * @brief: Rutas Para Login y Registro de usuarios
+ * @details: Acá se ponen todas las rutas que tienen relacion a las funcionalidades
+ *           de dar de alta un usuario e iniciar session
+ */
+
+Route::get('/home',function(){
+    return view('home');
+})->name('home');;
+
+Route::get('/register', [RegisterController::class, 'create'])
+    ->middleware('guest')
+    ->name('auth.register');
+Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+
+Route::get('/login', [SessionController::class, 'create'])
+    ->middleware('guest')
+    ->name('auth.login');
+
+Route::post('/login', [SessionController::class, 'store'])->name('login.store');
+
+Route::get('/logout', [SessionController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('auth.logout');
