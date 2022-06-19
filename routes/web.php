@@ -54,8 +54,12 @@ Route::get('/admin/articulos', [Admin::class, 'articulos']);
 Route::get('/alta_articulo', [Controller::class, 'alta']);
 
 
-Route::post('/guardar_formulario', [Controller::class, 'store'])->name('formulario.guardar'); 
+Route::post('/guardar_formulario', [Controller::class, 'store'])->name('formulario.guardar');
+Route::post('/modificar_formulario', [Controller::class, 'modify'])->name('formulario.modificar');
 
 Route::get('/admin/article/delete_get/{id}', [Admin::class, 'delete_get']);
 Route::get('/admin/article/delete/{id}', [Admin::class, 'delete']);
+
+Route::get('/admin/article/update_get/{id}', [Admin::class, 'update_get']);
+Route::get('/admin/article/update/{id}', [Admin::class, 'update']);
 
