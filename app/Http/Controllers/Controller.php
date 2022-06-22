@@ -7,6 +7,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 
 class Controller extends BaseController
@@ -31,5 +32,77 @@ class Controller extends BaseController
             ['id'=> 2, 'articleName'=>'Arroz Dos Hermanos', 'articlePrice'=> '133', 'articleImage'=>'images/product_2.jpg', 'articleCategory' => 'Comestibles']
         ];
         return view('articulos2', compact('respuesta'));
+    }
+
+    public function alta(){
+        return view('alta');
+    }
+
+    //Trae datos del formulario, los guarda en variables locales que luego vuelca en la base de datos
+    //para después volver a la vista
+    public function store(Request $request){
+ //       $validatedData = $request->validate([
+ //           'name' => 'required',
+ //           'price' => 'required',
+ //           'image' => 'required',
+ //           'category' => 'required',
+ //       ]);
+
+        // $request->validate([
+        //     'name' => 'required',
+        //     'founded' => 'required|integer|min:0|max:2021',
+        //     'description' => 'required',
+        //     'image' => 'required|mimes:jpg,png,jpeg|max:5048'
+        // ]);
+
+        // $test = $request->file('image')->getClientOriginalName();
+        // gessExtension()
+        // getMimeType()
+        // store()
+        // asStore()
+        // storePublicly()
+        // move()
+        // getClientOriginalName()
+        // getClientMimeType()
+        // getClientMimeType()
+        // gessClientExtension()
+        // getSize()
+        // getError()
+        // isValid()
+
+        // dd($test);
+
+        $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
+        $request->image->move(public_path('images'), $newImageName);
+        // dd($test);
+
+        $nombre = $request->input('name');
+        $precio = $request->input('price');
+        $imagen = 'images/' . $newImageName;
+        $categoria = $request->input('category');
+        //Escribo en base de datos
+        DB::table('articulo')->upsert([
+            ['name'=> $nombre, 'price' => floatval($precio), 'image' =>  $imagen, 'category' => $categoria],
+        ],[]);
+        //Envío respuesta a vista
+        $respuesta = [
+            'name' => $nombre, 'price' => $precio, 'image' => $imagen, 'category' => $categoria
+        ];
+        return view('alta', compact('respuesta'));
+    }
+
+    public function modify(Request $request){
+               $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
+               $request->image->move(public_path('images'), $newImageName);
+               // dd($test);
+               $id = $request->input('id');
+               $nombre = $request->input('name');
+               $precio = $request->input('price');
+               $imagen = 'images/' . $newImageName;
+               $categoria = $request->input('category');
+               //Escribo en base de datos
+               DB::table('articulo')->where('id', $id)
+               ->update(array('name' => $nombre, 'price' => floatval($precio), 'image' => $imagen, 'category' => $categoria));
+               return redirect('/admin/articulos');
     }
 }
