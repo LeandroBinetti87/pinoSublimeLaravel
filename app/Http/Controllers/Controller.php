@@ -90,5 +90,19 @@ class Controller extends BaseController
         ];
         return view('alta', compact('respuesta'));
     }
-    
+
+    public function modify(Request $request){
+               $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
+               $request->image->move(public_path('images'), $newImageName);
+               // dd($test);
+               $id = $request->input('id');
+               $nombre = $request->input('name');
+               $precio = $request->input('price');
+               $imagen = 'images/' . $newImageName;
+               $categoria = $request->input('category');
+               //Escribo en base de datos
+               DB::table('articulo')->where('id', $id)
+               ->update(array('name' => $nombre, 'price' => floatval($precio), 'image' => $imagen, 'category' => $categoria));
+               return redirect('/admin/articulos');
+    }
 }
